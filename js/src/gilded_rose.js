@@ -16,6 +16,36 @@ function Item(name, sell_in, quality, state_func) {
 var items = []
 
 /**
+ * This will update an item based on events and previous state
+ * @param {Object} item previous state of the item
+ * @param {String} events events item is passing by
+ */
+function update_item(item, events) {
+  item = item.state_function(item, events);
+}
+
+/**
+ * Sample of how to create an item with state function
+ */
+const aged_brie = Item('Aged Brie', 20, 10, (prev, events) => {
+  let next = prev;
+  if (prev.quality < 50) {
+    next.quality = prev.quality + 1;
+    next.sell_in = prev.sell_in - 1;
+  }
+  return next;
+});
+
+/**
+ * New update quality function will be more readable
+ */
+function new_update_quality() {
+  for (let i=0; i < items.length; i++) {
+    items[i] = update_item(items[i]);
+  }
+}
+
+/**
  * This is pretty much unreadable
  * with couple of down falls:
  * 1- Hard to maintain/debug
@@ -25,19 +55,6 @@ var items = []
  * @example every product category will have its own state function
  * @see state-functions,state-machines
  */
-function update_item(item, events) {
-  item = item.stateFunction(item, events);
-}
-
-const aged_brie = Item('Aged Brie', 20, 10, (prev, events) => {
-  next = prev;
-  if (prev.quality < 50) {
-    next.quality = prev.quality + 1;
-    next.sell_in = prev.sell_in - 1;
-    
-  }
-});
-
 function update_quality() {
   for (var i = 0; i < items.length; i++) {
     if (items[i].name != 'Aged Brie' && items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
