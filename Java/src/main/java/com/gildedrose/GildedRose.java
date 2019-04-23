@@ -59,4 +59,14 @@ class GildedRose {
             }
         }
     }
+
+    /**
+    New update quality function  with state functions should look like this
+     */
+    public void newUpdateQuality() {
+        for (int i = 0; i < items.length; i++) {
+            items[i].updateQuality();
+        }
+
+    }
 }
