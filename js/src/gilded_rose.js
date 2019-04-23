@@ -18,16 +18,17 @@ var items = []
 /**
  * This will update an item based on events and previous state
  * @param {Object} item previous state of the item
- * @param {String} events events item is passing by
+ * @param {String} events model the external events/occurances/interrupts
  */
-function update_item(item, events) {
+function update_item(item, events = null) {
   item = item.state_function(item, events);
 }
 
 /**
  * Sample of how to create an item with state function
+ * Note: events model the external events/occurances/interrupts
  */
-const aged_brie = Item('Aged Brie', 20, 10, (prev, events) => {
+const aged_brie = Item('Aged Brie', 20, 10, (prev, events = null) => {
   let next = prev;
   if (prev.quality < 50) {
     next.quality = prev.quality + 1;
