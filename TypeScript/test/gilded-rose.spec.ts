@@ -8,16 +8,20 @@ function itemWithNamedProperties({name, sellIn, quality}: { name: string, sellIn
 describe('Gilded Rose', function () {
     describe('for generic items', () => {
         const itemName = 'generic item';
-        it('should reduce sell by date by 1', function() {
-            const gildedRose = new GildedRose([ 
-                itemWithNamedProperties({
-                    name: itemName,
-                    sellIn: 5,
-                    quality: 0
-                }) 
-            ]);
-            const items = gildedRose.updateQuality();
-            expect(items[0].sellIn).to.equal(4);
+        describe('should reduce sell by date', function() {
+            [-2, -1, 0, 1, 2, 3, 4, 5].forEach((sellByDate) => {
+                it(`from ${sellByDate} to ${sellByDate-1}`, () => {
+                    const gildedRose = new GildedRose([
+                        itemWithNamedProperties({
+                            name: itemName,
+                            sellIn: sellByDate,
+                            quality: 0
+                        })
+                    ]);
+                    const items = gildedRose.updateQuality();
+                    expect(items[0].sellIn).to.equal(sellByDate-1);
+                })
+            });
         });
     });
 });
