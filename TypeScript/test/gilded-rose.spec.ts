@@ -144,4 +144,37 @@ describe('Gilded Rose', function () {
             });
         });
     });
+    describe('for Sulfuras, Hand of Ragnaros', () => {
+        const itemName = 'Sulfuras, Hand of Ragnaros';
+        describe('should always maintain sell by date', function() {
+            [-2, -1, 0, 1, 2, 3, 4, 5].forEach((sellByDate) => {
+                it(`from ${sellByDate} to ${sellByDate}`, () => {
+                    const gildedRose = new GildedRose([
+                        itemWithNamedProperties({
+                            name: itemName,
+                            sellIn: sellByDate,
+                            quality: 0
+                        })
+                    ]);
+                    const items = gildedRose.updateQuality();
+                    expect(items[0].sellIn).to.equal(sellByDate);
+                })
+            });
+        });
+        describe('should always maintain quality', function() {
+            [-2, -1, 0, 1, 2, 3, 4, 5].forEach((quality) => {
+                it(`from ${quality} to ${quality}`, () => {
+                    const gildedRose = new GildedRose([
+                        itemWithNamedProperties({
+                            name: itemName,
+                            sellIn: 0,
+                            quality: quality
+                        })
+                    ]);
+                    const items = gildedRose.updateQuality();
+                    expect(items[0].quality).to.equal(quality);
+                })
+            });
+        });
+    });
 });
