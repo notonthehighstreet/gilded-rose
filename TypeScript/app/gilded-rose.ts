@@ -19,37 +19,38 @@ export class GildedRose {
 
     updateQuality() {
         for (let i = 0; i < this.items.length; i++) {
-            switch (this.items[i].name) {
+            const item = this.items[i];
+            switch (item.name) {
                 case 'Aged Brie':
-                    if (isExpired(this.items[i])) {
-                       increaseItemQuality(this.items[i], 2);
+                    if (isExpired(item)) {
+                       increaseItemQuality(item, 2);
                     } else {
-                       increaseItemQuality(this.items[i], 1);
+                       increaseItemQuality(item, 1);
                     }
-                    ageItem(this.items[i]);
+                    ageItem(item);
                 break;
                 case 'Sulfuras, Hand of Ragnaros':
                     // no change to quality or sellIn
                 break;
                 case 'Backstage passes to a TAFKAL80ETC concert':
-                    if (this.items[i].sellIn > 10) {
-                       increaseItemQuality(this.items[i], 1);
-                    } else if (this.items[i].sellIn > 5) {
-                       increaseItemQuality(this.items[i], 2);
-                    } else if (this.items[i].sellIn > 0) {
-                       increaseItemQuality(this.items[i], 3);
+                    if (item.sellIn > 10) {
+                       increaseItemQuality(item, 1);
+                    } else if (item.sellIn > 5) {
+                       increaseItemQuality(item, 2);
+                    } else if (item.sellIn > 0) {
+                       increaseItemQuality(item, 3);
                     } else {
-                        this.items[i].quality = 0;
+                        item.quality = 0;
                     }
-                    ageItem(this.items[i]);
+                    ageItem(item);
                 break;
                 default:
-                    if (isExpired(this.items[i])) {
-                        decreaseItemQuality(this.items[i], 2);
+                    if (isExpired(item)) {
+                        decreaseItemQuality(item, 2);
                     } else {
-                        decreaseItemQuality(this.items[i], 1);
+                        decreaseItemQuality(item, 1);
                     }
-                    ageItem(this.items[i]);
+                    ageItem(item);
                 break;
             }
         }
