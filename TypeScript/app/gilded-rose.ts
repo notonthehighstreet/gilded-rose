@@ -21,12 +21,12 @@ export class GildedRose {
         for (let i = 0; i < this.items.length; i++) {
             switch (this.items[i].name) {
                 case 'Aged Brie':
-                    if (this.items[i].sellIn <= 0) {
+                    if (isExpired(this.items[i])) {
                        increaseItemQuality(this.items[i], 2);
                     } else {
                        increaseItemQuality(this.items[i], 1);
                     }
-                    this.items[i].sellIn = this.items[i].sellIn - 1;
+                    ageItem(this.items[i]);
                 break;
                 case 'Sulfuras, Hand of Ragnaros':
                     // no change to quality or sellIn
@@ -41,15 +41,15 @@ export class GildedRose {
                     } else {
                         this.items[i].quality = 0;
                     }
-                    this.items[i].sellIn = this.items[i].sellIn - 1;
+                    ageItem(this.items[i]);
                 break;
                 default:
-                    if (this.items[i].sellIn > 0) {
-                        decreaseItemQuality(this.items[i], 1);
-                    } else {
+                    if (isExpired(this.items[i])) {
                         decreaseItemQuality(this.items[i], 2);
+                    } else {
+                        decreaseItemQuality(this.items[i], 1);
                     }
-                    this.items[i].sellIn = this.items[i].sellIn - 1;
+                    ageItem(this.items[i]);
                 break;
             }
         }
@@ -64,4 +64,12 @@ function increaseItemQuality(item, amount) {
 
 function decreaseItemQuality(item, amount) {
     item.quality = Math.max(item.quality - amount, 0);
+}
+
+function ageItem(item) {
+    item.sellIn = item.sellIn - 1;
+}
+
+function isExpired(item) {
+    return item.sellIn <= 0;
 }
