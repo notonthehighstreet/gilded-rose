@@ -22,9 +22,9 @@ export class GildedRose {
             switch (this.items[i].name) {
                 case 'Aged Brie':
                     if (this.items[i].sellIn <= 0) {
-                        this.items[i].quality = Math.min(this.items[i].quality + 2, 50);
+                       increaseItemQuality(this.items[i], 2);
                     } else {
-                        this.items[i].quality = Math.min(this.items[i].quality + 1, 50);
+                       increaseItemQuality(this.items[i], 1);
                     }
                     this.items[i].sellIn = this.items[i].sellIn - 1;
                 break;
@@ -33,11 +33,11 @@ export class GildedRose {
                 break;
                 case 'Backstage passes to a TAFKAL80ETC concert':
                     if (this.items[i].sellIn > 10) {
-                        this.items[i].quality = Math.min(this.items[i].quality + 1, 50);
+                       increaseItemQuality(this.items[i], 1);
                     } else if (this.items[i].sellIn > 5) {
-                        this.items[i].quality = Math.min(this.items[i].quality + 2, 50);
+                       increaseItemQuality(this.items[i], 2);
                     } else if (this.items[i].sellIn > 0) {
-                        this.items[i].quality = Math.min(this.items[i].quality + 3, 50);
+                       increaseItemQuality(this.items[i], 3);
                     } else {
                         this.items[i].quality = 0;
                     }
@@ -45,9 +45,9 @@ export class GildedRose {
                 break;
                 default:
                     if (this.items[i].sellIn > 0) {
-                        this.items[i].quality = Math.max(this.items[i].quality - 1, 0);
+                        decreaseItemQuality(this.items[i], 1);
                     } else {
-                        this.items[i].quality = Math.max(this.items[i].quality - 2, 0);
+                        decreaseItemQuality(this.items[i], 2);
                     }
                     this.items[i].sellIn = this.items[i].sellIn - 1;
                 break;
@@ -56,4 +56,12 @@ export class GildedRose {
 
         return this.items;
     }
+}
+
+function increaseItemQuality(item, amount) {
+    item.quality = Math.min(item.quality + amount, 50);
+}
+
+function decreaseItemQuality(item, amount) {
+    item.quality = Math.max(item.quality - amount, 0);
 }
