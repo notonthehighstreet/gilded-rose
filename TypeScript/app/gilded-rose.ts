@@ -29,6 +29,32 @@ export class GildedRose {
                     this.items[i].sellIn = this.items[i].sellIn - 1;
                     continue;
                 break;
+                case 'Sulfuras, Hand of Ragnaros':
+                    // no change to quality or sellIn
+                    continue;
+                break;
+                case 'Backstage passes to a TAFKAL80ETC concert':
+                    if (this.items[i].sellIn > 10) {
+                        this.items[i].quality = Math.min(this.items[i].quality + 1, 50);
+                    } else if (this.items[i].sellIn > 5) {
+                        this.items[i].quality = Math.min(this.items[i].quality + 2, 50);
+                    } else if (this.items[i].sellIn > 0) {
+                        this.items[i].quality = Math.min(this.items[i].quality + 3, 50);
+                    } else {
+                        this.items[i].quality = 0;
+                    }
+                    this.items[i].sellIn = this.items[i].sellIn - 1;
+                    continue;
+                break;
+                default:
+                    if (this.items[i].sellIn > 0) {
+                        this.items[i].quality = Math.max(this.items[i].quality - 1, 0);
+                    } else {
+                        this.items[i].quality = Math.max(this.items[i].quality - 2, 0);
+                    }
+                    this.items[i].sellIn = this.items[i].sellIn - 1;
+                    continue;
+                break;
             }
             if (this.items[i].name != 'Aged Brie' && this.items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
                 if (this.items[i].quality > 0) {
