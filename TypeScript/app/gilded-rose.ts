@@ -64,7 +64,8 @@ function increaseItemQuality(item, amount) {
 }
 
 function decreaseItemQuality(item, amount) {
-    item.quality = Math.max(item.quality - amount, 0);
+    const decreaseInItemQuality = isConjured(item) ? amount * 2 : amount;
+    item.quality = Math.max(item.quality - decreaseInItemQuality, 0);
 }
 
 function ageItem(item) {
@@ -73,4 +74,8 @@ function ageItem(item) {
 
 function isExpired(item) {
     return item.sellIn <= 0;
+}
+
+function isConjured(item) {
+    return item.name.indexOf('Conjured ') === 0;
 }
