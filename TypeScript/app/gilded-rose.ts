@@ -46,9 +46,9 @@ export class GildedRose {
                 break;
                 default:
                     if (isExpired(item)) {
-                        decreaseItemQuality(item, 2);
+                        isConjured(item) ? decreaseItemQuality(item, 4) : decreaseItemQuality(item, 2);
                     } else {
-                        decreaseItemQuality(item, 1);
+                        isConjured(item) ? decreaseItemQuality(item, 2) : decreaseItemQuality(item, 1);
                     }
                     ageItem(item);
                 break;
@@ -64,8 +64,7 @@ function increaseItemQuality(item, amount) {
 }
 
 function decreaseItemQuality(item, amount) {
-    const decreaseInItemQuality = isConjured(item) ? amount * 2 : amount;
-    item.quality = Math.max(item.quality - decreaseInItemQuality, 0);
+    item.quality = Math.max(item.quality - amount, 0);
 }
 
 function ageItem(item) {
