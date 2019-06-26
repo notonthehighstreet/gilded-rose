@@ -1,0 +1,18 @@
+.container {
+    width: 90%;
+    margin: 0 5%;
+}
+
+.container__data {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.container__data--row{
+    margin: 10px;
+    width: 30%;
+}
+
+.container__data--header {
+    width: 100%;
+}
