@@ -56,7 +56,6 @@ function update_quality() {
 
 function update_quality_refactored() {
   items.forEach(function (item, index, array) {
-    console.log(item.id, item.title);
     var name = item.name
     var quality = item.quality
     var sell_in = item.sell_in
