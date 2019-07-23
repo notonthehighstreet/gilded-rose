@@ -84,4 +84,18 @@ describe('Gilded Rose', function() {
     expect(items[0].quality).toEqual(26);
   });
 
+  it("should recognise any sort of conjured item", function() {
+    items = [ new Item("A pair of conjured snow boots", 2, 30) ];
+    update_quality();
+    expect(items[0].sell_in).toEqual(1);
+    expect(items[0].quality).toEqual(28);
+  });
+
+  it("should recognise any sort of backstage passes", function() {
+    items = [ new Item("Backstage pass to Wizard Rock", 5, 30) ];
+    update_quality();
+    expect(items[0].sell_in).toEqual(4);
+    expect(items[0].quality).toEqual(33);
+  });
+
 });
