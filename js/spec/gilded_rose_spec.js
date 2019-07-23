@@ -69,4 +69,19 @@ describe('Gilded Rose', function() {
     expect(items[0].sell_in).toEqual(-2);
     expect(items[0].quality).toEqual(0);
   });
+
+  it("should decrease the quality by two if the item is conjured and within sell by date", function() {
+    items = [ new Item("Conjured margaritas", 2, 30) ];
+    update_quality();
+    expect(items[0].sell_in).toEqual(1);
+    expect(items[0].quality).toEqual(28);
+  });
+
+  it("should decrease the quality by four if the item is conjured and past its sell by date", function() {
+    items = [ new Item("Conjured margaritas", 0, 30) ];
+    update_quality();
+    expect(items[0].sell_in).toEqual(-1);
+    expect(items[0].quality).toEqual(26);
+  });
+
 });
