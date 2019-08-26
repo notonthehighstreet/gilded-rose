@@ -1,5 +1,9 @@
 package com.gildedrose;
 
+/**
+ * NOTE to interviewer: not sure what this is for? Based on the name, it's a utility for testing,
+ * but I have not used it, beyond noting the item names
+ */
 public class TexttestFixture {
     public static void main(String[] args) {
         System.out.println("Starting Gilded Rose");

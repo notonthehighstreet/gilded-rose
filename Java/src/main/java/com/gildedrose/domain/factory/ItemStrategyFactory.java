@@ -6,8 +6,8 @@ import com.gildedrose.domain.factory.strategy.*;
 /**
  * Factory to get an implementation of BaseItemStrategy based on an Item
  * NOTE: we could added caching here if the requirement were ever added
- * NOTE: use of static here for development speed purposes, in a real world app, I would used an intance of ease of testing
- * (ie inject a different factory for tests)
+ * NOTE: use of static here for development speed purposes, in a real world app, I would have used an instance to ease testing
+ * (ie inject a different factory for tests - make this one implement an interface)
  */
 public class ItemStrategyFactory {
 
