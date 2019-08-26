@@ -233,5 +233,60 @@ public class GildedRoseTest {
 
     }
 
+    /**
+     * Legendary item tests
+     */
+    public static class Item_Legendary {
+
+        private static final String ITEM_NAME = "Sulfuras, Hand of Ragnaros";
+        private static final int LEGENDARY_ITEM_QUALITY = 80;
+
+        private Item createItem(ITEM_EXPIRE_BENCHMARKS expire_benchmark) {
+            return GildedRoseTest.createItem(ITEM_NAME, expire_benchmark, Item_Legendary.LEGENDARY_ITEM_QUALITY);
+        }
+
+        @Test
+        public void high_Expire() {
+            Item newItem = createItem(ITEM_EXPIRE_BENCHMARKS.HIGH_EXPIRE);
+            Item[] items = new Item[]{newItem};
+            GildedRose app = new GildedRose(items);
+            app.updateQuality();
+            assertWithMessage("Sellin").that(newItem.sellIn).isEqualTo(ITEM_EXPIRE_BENCHMARKS.HIGH_EXPIRE.days);
+            assertWithMessage("Quality").that(newItem.quality).isEqualTo(LEGENDARY_ITEM_QUALITY);
+        }
+
+        @Test
+        public void medium_Expire() {
+            Item newItem = createItem(ITEM_EXPIRE_BENCHMARKS.MEDIUM_EXPIRE);
+            Item[] items = new Item[]{newItem};
+            GildedRose app = new GildedRose(items);
+            app.updateQuality();
+            assertWithMessage("Sellin").that(newItem.sellIn).isEqualTo(ITEM_EXPIRE_BENCHMARKS.MEDIUM_EXPIRE.days);
+            assertWithMessage("Quality").that(newItem.quality).isEqualTo(LEGENDARY_ITEM_QUALITY);
+        }
+
+        @Test
+        public void low_Expire() {
+            Item newItem = createItem(ITEM_EXPIRE_BENCHMARKS.LOW_EXPIRE);
+            Item[] items = new Item[]{newItem};
+            GildedRose app = new GildedRose(items);
+            app.updateQuality();
+            assertWithMessage("Sellin").that(newItem.sellIn).isEqualTo(ITEM_EXPIRE_BENCHMARKS.LOW_EXPIRE.days);
+            assertWithMessage("Quality").that(newItem.quality).isEqualTo(LEGENDARY_ITEM_QUALITY);
+        }
+
+
+        @Test
+        public void expired() {
+            Item newItem = createItem(ITEM_EXPIRE_BENCHMARKS.EXPIRED);
+            Item[] items = new Item[]{newItem};
+            GildedRose app = new GildedRose(items);
+            app.updateQuality();
+            assertWithMessage("Sellin").that(newItem.sellIn).isEqualTo(ITEM_EXPIRE_BENCHMARKS.EXPIRED.days);
+            assertWithMessage("Quality").that(newItem.quality).isEqualTo(LEGENDARY_ITEM_QUALITY);
+        }
+
+    }
+
 
 }
