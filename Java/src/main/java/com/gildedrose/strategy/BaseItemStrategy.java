@@ -8,7 +8,7 @@ public abstract class BaseItemStrategy {
     private static final int MINIMUM_QUALITY = 0;
     private static final int MAXIMUM_QUALITY = 50;
 
-    final public Item updateItem(Item item) {
+    final public void updateItem(Item item) {
         item.sellIn = item.sellIn + getSellInChange(item);
         int tempQuality = item.quality + getQualityChange(item);
         //Gate quality value between min and max values
@@ -18,7 +18,6 @@ public abstract class BaseItemStrategy {
             tempQuality = getMaximumQuality();
         }
         item.quality = tempQuality;
-        return item;
     }
 
     int getSellInChange(Item item) {
