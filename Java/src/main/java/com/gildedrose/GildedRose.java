@@ -1,5 +1,8 @@
 package com.gildedrose;
 
+import com.gildedrose.strategy.BaseItemStrategy;
+import com.gildedrose.strategy.GenericItemStrategy;
+
 class GildedRose {
     Item[] items;
 
@@ -8,6 +11,7 @@ class GildedRose {
     }
 
     public void updateQuality() {
+        BaseItemStrategy strategy = null;
         for (Item item : items) {
             if (item.name.equals("Aged Brie")) {
                 if (item.quality < 50) {
@@ -62,16 +66,11 @@ class GildedRose {
                     }
                 }
             } else {
-                if (item.quality > 0) {
-                    item.quality = item.quality - 1;
-                }
-                item.sellIn = item.sellIn - 1;
+                strategy = new GenericItemStrategy();
+            }
 
-                if (item.sellIn < 0) {
-                    if (item.quality > 0) {
-                        item.quality = item.quality - 1;
-                    }
-                }
+            if(strategy != null) {
+                strategy.updateItem(item);
             }
         }
     }
