@@ -7,9 +7,20 @@ import org.junit.runner.RunWith;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
 
+
+/**
+ * Time permitting and, to be honest, hindsight, a Parameterized test would have been a cleaner approach here
+ * as well as allowing me to write more edge case tests, examples being:
+ * all item types being tested on their quality boundaries and more 'sellin' variations
+ * I would use a two param Parameterized test, comparing items to their expected item
+ * (would require manual comparison as Item does not implement 'equals' or 'hashCode' Object.class methods)
+ */
 @RunWith(Enclosed.class)
 public class GildedRoseTest {
 
+    /**
+     * Spread of common item expiry 'sellin' day values to cover current logic cases (see above for improvement note)
+     */
     private enum ITEM_EXPIRE_BENCHMARKS {
         HIGH_EXPIRE(20),
         MEDIUM_EXPIRE(10),
