@@ -1,5 +1,6 @@
 package com.gildedrose;
 
+import com.gildedrose.strategy.BackStagePassItemStrategy;
 import com.gildedrose.strategy.BaseItemStrategy;
 import com.gildedrose.strategy.CheeseItemStrategy;
 import com.gildedrose.strategy.GenericItemStrategy;
@@ -17,26 +18,7 @@ class GildedRose {
             if (item.name.equals("Aged Brie")) {
                 strategy = new CheeseItemStrategy();
             } else if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                if (item.quality < 50) {
-                    item.quality = item.quality + 1;
-
-                    if (item.sellIn < 11) {
-                        if (item.quality < 50) {
-                            item.quality = item.quality + 1;
-                        }
-                    }
-
-                    if (item.sellIn < 6) {
-                        if (item.quality < 50) {
-                            item.quality = item.quality + 1;
-                        }
-                    }
-                }
-                item.sellIn = item.sellIn - 1;
-
-                if (item.sellIn < 0) {
-                    item.quality = 0;
-                }
+                strategy = new BackStagePassItemStrategy();
             } else if (item.name.equals("Sulfuras, Hand of Ragnaros")) {
                 //Ignore
 
