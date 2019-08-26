@@ -72,7 +72,7 @@ public class GildedRoseTest {
 
         @Test
         public void high_Expire() {
-            int quality = 1;
+            int quality = 2;
             Item newItem = createItem(ITEM_EXPIRE_BENCHMARKS.HIGH_EXPIRE, quality);
             Item[] items = new Item[]{newItem};
             GildedRose app = new GildedRose(items);
@@ -83,7 +83,7 @@ public class GildedRoseTest {
 
         @Test
         public void medium_Expire() {
-            int quality = 1;
+            int quality = 2;
             Item newItem = createItem(ITEM_EXPIRE_BENCHMARKS.MEDIUM_EXPIRE, quality);
             Item[] items = new Item[]{newItem};
             GildedRose app = new GildedRose(items);
@@ -94,7 +94,7 @@ public class GildedRoseTest {
 
         @Test
         public void low_Expire() {
-            int quality = 1;
+            int quality = 2;
             Item newItem = createItem(ITEM_EXPIRE_BENCHMARKS.LOW_EXPIRE, quality);
             Item[] items = new Item[]{newItem};
             GildedRose app = new GildedRose(items);
@@ -106,13 +106,13 @@ public class GildedRoseTest {
 
         @Test
         public void expired() {
-            int quality = 1;
+            int quality = 2;
             Item newItem = createItem(ITEM_EXPIRE_BENCHMARKS.EXPIRED, quality);
             Item[] items = new Item[]{newItem};
             GildedRose app = new GildedRose(items);
             app.updateQuality();
             assertWithMessage("Sellin").that(newItem.sellIn).isEqualTo(ITEM_EXPIRE_BENCHMARKS.EXPIRED.days - 1);
-            assertWithMessage("Quality").that(newItem.quality).isEqualTo(0);
+            assertWithMessage("Quality").that(newItem.quality).isEqualTo(quality - 2);
         }
 
     }
@@ -130,7 +130,7 @@ public class GildedRoseTest {
 
         @Test
         public void high_Expire() {
-            int quality = 1;
+            int quality = 2;
             Item newItem = createItem(ITEM_EXPIRE_BENCHMARKS.HIGH_EXPIRE, quality);
             Item[] items = new Item[]{newItem};
             GildedRose app = new GildedRose(items);
@@ -141,7 +141,7 @@ public class GildedRoseTest {
 
         @Test
         public void medium_Expire() {
-            int quality = 1;
+            int quality = 2;
             Item newItem = createItem(ITEM_EXPIRE_BENCHMARKS.MEDIUM_EXPIRE, quality);
             Item[] items = new Item[]{newItem};
             GildedRose app = new GildedRose(items);
@@ -152,7 +152,7 @@ public class GildedRoseTest {
 
         @Test
         public void low_Expire() {
-            int quality = 1;
+            int quality = 2;
             Item newItem = createItem(ITEM_EXPIRE_BENCHMARKS.LOW_EXPIRE, quality);
             Item[] items = new Item[]{newItem};
             GildedRose app = new GildedRose(items);
@@ -164,7 +164,7 @@ public class GildedRoseTest {
 
         @Test
         public void expired() {
-            int quality = 1;
+            int quality = 2;
             Item newItem = createItem(ITEM_EXPIRE_BENCHMARKS.EXPIRED, quality);
             Item[] items = new Item[]{newItem};
             GildedRose app = new GildedRose(items);
@@ -188,7 +188,7 @@ public class GildedRoseTest {
 
         @Test
         public void high_Expire() {
-            int quality = 1;
+            int quality = 2;
             Item newItem = createItem(ITEM_EXPIRE_BENCHMARKS.HIGH_EXPIRE, quality);
             Item[] items = new Item[]{newItem};
             GildedRose app = new GildedRose(items);
@@ -199,7 +199,7 @@ public class GildedRoseTest {
 
         @Test
         public void medium_Expire() {
-            int quality = 1;
+            int quality = 2;
             Item newItem = createItem(ITEM_EXPIRE_BENCHMARKS.MEDIUM_EXPIRE, quality);
             Item[] items = new Item[]{newItem};
             GildedRose app = new GildedRose(items);
@@ -210,7 +210,7 @@ public class GildedRoseTest {
 
         @Test
         public void low_Expire() {
-            int quality = 1;
+            int quality = 2;
             Item newItem = createItem(ITEM_EXPIRE_BENCHMARKS.LOW_EXPIRE, quality);
             Item[] items = new Item[]{newItem};
             GildedRose app = new GildedRose(items);
@@ -222,7 +222,7 @@ public class GildedRoseTest {
 
         @Test
         public void expired() {
-            int quality = 1;
+            int quality = 2;
             Item newItem = createItem(ITEM_EXPIRE_BENCHMARKS.EXPIRED, quality);
             Item[] items = new Item[]{newItem};
             GildedRose app = new GildedRose(items);
@@ -288,5 +288,63 @@ public class GildedRoseTest {
 
     }
 
+
+    /**
+     * Conjured item tests
+     */
+    public static class Item_Conjured {
+
+        private static final String ITEM_NAME = "Conjured";
+
+        private Item createItem(ITEM_EXPIRE_BENCHMARKS expire_benchmark, int quality) {
+            return GildedRoseTest.createItem(ITEM_NAME, expire_benchmark, quality);
+        }
+
+        @Test
+        public void high_Expire() {
+            int quality = 2;
+            Item newItem = createItem(ITEM_EXPIRE_BENCHMARKS.HIGH_EXPIRE, quality);
+            Item[] items = new Item[]{newItem};
+            GildedRose app = new GildedRose(items);
+            app.updateQuality();
+            assertWithMessage("Sellin").that(newItem.sellIn).isEqualTo(ITEM_EXPIRE_BENCHMARKS.HIGH_EXPIRE.days - 1);
+            assertWithMessage("Quality").that(newItem.quality).isEqualTo(quality - 2);
+        }
+
+        @Test
+        public void medium_Expire() {
+            int quality = 2;
+            Item newItem = createItem(ITEM_EXPIRE_BENCHMARKS.MEDIUM_EXPIRE, quality);
+            Item[] items = new Item[]{newItem};
+            GildedRose app = new GildedRose(items);
+            app.updateQuality();
+            assertWithMessage("Sellin").that(newItem.sellIn).isEqualTo(ITEM_EXPIRE_BENCHMARKS.MEDIUM_EXPIRE.days - 1);
+            assertWithMessage("Quality").that(newItem.quality).isEqualTo(quality - 2);
+        }
+
+        @Test
+        public void low_Expire() {
+            int quality = 2;
+            Item newItem = createItem(ITEM_EXPIRE_BENCHMARKS.LOW_EXPIRE, quality);
+            Item[] items = new Item[]{newItem};
+            GildedRose app = new GildedRose(items);
+            app.updateQuality();
+            assertWithMessage("Sellin").that(newItem.sellIn).isEqualTo(ITEM_EXPIRE_BENCHMARKS.LOW_EXPIRE.days - 1);
+            assertWithMessage("Quality").that(newItem.quality).isEqualTo(quality - 2);
+        }
+
+
+        @Test
+        public void expired() {
+            int quality = 5;
+            Item newItem = createItem(ITEM_EXPIRE_BENCHMARKS.EXPIRED, quality);
+            Item[] items = new Item[]{newItem};
+            GildedRose app = new GildedRose(items);
+            app.updateQuality();
+            assertWithMessage("Sellin").that(newItem.sellIn).isEqualTo(ITEM_EXPIRE_BENCHMARKS.EXPIRED.days - 1);
+            assertWithMessage("Quality").that(newItem.quality).isEqualTo(quality - 4);
+        }
+
+    }
 
 }
