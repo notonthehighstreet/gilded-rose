@@ -44,7 +44,7 @@ export class GildedRose {
         default: {
           // TODO - Add variation for "Conjured" items
           if (item.quality > 0) {
-            if (item.sellIn < 0) {
+            if (item.sellIn < 0 || item.name.includes("Conjured")) {
               // Past sell by date, item decreases twice as fast
               item.quality -= 2;
             } else {
