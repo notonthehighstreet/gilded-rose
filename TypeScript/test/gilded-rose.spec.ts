@@ -47,4 +47,8 @@ describe("Gilded Rose", () => {
   it("should set the quality to 0 for tickets past sale", () => {
     expect(gildedRose.items[8].quality).to.equal(0);
   });
+
+  it("should decrease the quality twice as fast for conjured items", () => {
+    expect(gildedRose.items[9].quality).to.equal(4);
+  });
 });
