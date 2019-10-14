@@ -56,7 +56,7 @@ export class GildedRose {
       }
 
       // Reset quality to max limit if it has gone over
-      if (item.quality > 50) {
+      if (item.name !== "Sulfuras, Hand of Ragnaros" && item.quality > 50) {
         item.quality = 50;
       }
 
@@ -66,6 +66,8 @@ export class GildedRose {
       }
 
       item.sellIn -= 1;
+
+      return item;
     });
 
     return updatedItems;
