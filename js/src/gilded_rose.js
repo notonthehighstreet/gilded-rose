@@ -34,7 +34,7 @@ function update_general_quality(sell_in, quality) {
 	return Math.max(quality - qualityDecrease, 0);
 }
 
-function update_item_quality(item) {
+function update_single_item(item) {
 	let quality;
 
 	switch (item.name) {
@@ -57,6 +57,6 @@ function update_item_quality(item) {
 	return new Item(item.name, item.sell_in - 1, quality);
 };
 
-function update_quality(items) {
-	return items.map(update_item_quality);
+function update_items(items) {
+	return items.map(update_single_item);
 }

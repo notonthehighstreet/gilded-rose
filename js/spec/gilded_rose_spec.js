@@ -2,7 +2,7 @@ describe('Gilded Rose', function() {
 	describe('general rules', () => {
 		it('should reduce the Quality and SellIn values by 1', () => {
 			const testItems = [new Item('Leestian evil juice', 5, 3)];
-			const results = update_quality(testItems);
+			const results = update_items(testItems);
 			expect(results[0].sell_in).toEqual(4);
 			expect(results[0].quality).toEqual(2);
 		});
@@ -10,7 +10,7 @@ describe('Gilded Rose', function() {
 		describe('an item with a Quality of zero', () => {
 			it('should not reduce the Quality to below zero', () => {
 				const testItems = [new Item('Leestian evil juice', 0, 0)];
-				const results = update_quality(testItems);
+				const results = update_items(testItems);
 				expect(results[0].quality).toEqual(0);
 			});
 		});
@@ -18,7 +18,7 @@ describe('Gilded Rose', function() {
 		describe('once the sell by date has passed', () => {
 			it('should reduce the Quality twice as fast', () => {
 				const testItems = [new Item('Leestian evil juice', 0, 5)];
-				const results = update_quality(testItems);
+				const results = update_items(testItems);
 				expect(results[0].quality).toEqual(3);
 			});
 		});
@@ -31,7 +31,7 @@ describe('Gilded Rose', function() {
 					new Item('Sulfuras, Hand of Ragnaros', 10, 5),
 					new Item('Sulfuras, Hand of Ragnaros', -1, 10)
 				];
-				const results = update_quality(testItems);
+				const results = update_items(testItems);
 				expect(results[0].sell_in).toEqual(10);
 				expect(results[0].quality).toEqual(5);
 				expect(results[1].sell_in).toEqual(-1);
@@ -45,7 +45,7 @@ describe('Gilded Rose', function() {
 					new Item('Aged Brie', 2, 0),
 					new Item('Aged Brie', -1, 0)
 				];
-				const results = update_quality(testItems);
+				const results = update_items(testItems);
 				expect(results[0].quality).toEqual(1);
 				expect(results[0].sell_in).toEqual(1);
 				expect(results[1].quality).toEqual(1);
@@ -58,7 +58,7 @@ describe('Gilded Rose', function() {
 				const testItems = [
 					new Item('Backstage passes to a TAFKAL80ETC concert', 11, 0)
 				];
-				const results = update_quality(testItems);
+				const results = update_items(testItems);
 				expect(results[0].quality).toEqual(1);
 				expect(results[0].sell_in).toEqual(10);
 			});
@@ -68,7 +68,7 @@ describe('Gilded Rose', function() {
 					const testItems = [
 						new Item('Backstage passes to a TAFKAL80ETC concert', 10, 0)
 					];
-					const results = update_quality(testItems);
+					const results = update_items(testItems);
 					expect(results[0].quality).toEqual(2);
 					expect(results[0].sell_in).toEqual(9);
 				});
@@ -79,7 +79,7 @@ describe('Gilded Rose', function() {
 					const testItems = [
 						new Item('Backstage passes to a TAFKAL80ETC concert', 5, 0)
 					];
-					const results = update_quality(testItems);
+					const results = update_items(testItems);
 					expect(results[0].quality).toEqual(3);
 					expect(results[0].sell_in).toEqual(4);
 				});
@@ -90,7 +90,7 @@ describe('Gilded Rose', function() {
 					const testItems = [
 						new Item('Backstage passes to a TAFKAL80ETC concert', 0, 10)
 					];
-					const results = update_quality(testItems);
+					const results = update_items(testItems);
 					expect(results[0].quality).toEqual(0);
 					expect(results[0].sell_in).toEqual(-1);
 				});
@@ -105,7 +105,7 @@ describe('Gilded Rose', function() {
 					new Item('Backstage passes to a TAFKAL80ETC concert', 10, 50),
 					new Item('Backstage passes to a TAFKAL80ETC concert', 5, 50)
 				];
-				const results = update_quality(testItems);
+				const results = update_items(testItems);
 				results.map(({quality}) => {
 					expect(quality).toEqual(50);
 				});
