@@ -42,11 +42,14 @@ describe('Gilded Rose', function() {
 		describe('Aged Brie', () => {
 			it('should increases in Quality the older it gets', () => {
 				const testItems = [
-					new Item('Aged Brie', 2, 0)
+					new Item('Aged Brie', 2, 0),
+					new Item('Aged Brie', -1, 0)
 				];
 				const results = update_quality(testItems);
 				expect(results[0].quality).toEqual(1);
 				expect(results[0].sell_in).toEqual(1);
+				expect(results[1].quality).toEqual(1);
+				expect(results[1].sell_in).toEqual(-2);
 			});
 		});
 
