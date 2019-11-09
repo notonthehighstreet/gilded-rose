@@ -46,6 +46,7 @@ describe('Gilded Rose', function() {
 				];
 				const results = update_quality(testItems);
 				expect(results[0].quality).toEqual(1);
+				expect(results[0].sell_in).toEqual(1);
 			});
 		});
 
@@ -56,6 +57,7 @@ describe('Gilded Rose', function() {
 				];
 				const results = update_quality(testItems);
 				expect(results[0].quality).toEqual(1);
+				expect(results[0].sell_in).toEqual(10);
 			});
 
 			describe('when there are 10 days or less left', () => {
@@ -65,6 +67,7 @@ describe('Gilded Rose', function() {
 					];
 					const results = update_quality(testItems);
 					expect(results[0].quality).toEqual(2);
+					expect(results[0].sell_in).toEqual(9);
 				});
 			});
 
@@ -75,6 +78,7 @@ describe('Gilded Rose', function() {
 					];
 					const results = update_quality(testItems);
 					expect(results[0].quality).toEqual(3);
+					expect(results[0].sell_in).toEqual(4);
 				});
 			});
 
@@ -85,6 +89,7 @@ describe('Gilded Rose', function() {
 					];
 					const results = update_quality(testItems);
 					expect(results[0].quality).toEqual(0);
+					expect(results[0].sell_in).toEqual(-1);
 				});
 			});
 		});
