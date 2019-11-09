@@ -97,6 +97,21 @@ describe('Gilded Rose', function() {
 			});
 		});
 
+		describe('Conjured items', () => {
+			it('should reduce the Quality twice as fast as normal items', () => {
+				const testItems = [
+					new Item('Conjured Mana Cake', 3, 6),
+					new Item('Conjured Mana Cake', 0, 6)
+				];
+				const results = update_items(testItems);
+				expect(results[0].sell_in).toEqual(2);
+				expect(results[0].quality).toEqual(4);
+				expect(results[1].sell_in).toEqual(-1);
+				expect(results[1].quality).toEqual(2);
+			});
+		});
+
+
 		describe('items that increase in value', () => {
 			it('should never increase in Quantity beyond 50', () => {
 				const testItems = [

@@ -26,6 +26,14 @@ function update_aged_brie_quality(quality) {
 		: quality;
 }
 
+function update_conjured_item_quality(sell_in, quality) {
+	const qualityDecrease = sell_in <= 0
+		? 4
+		: 2;
+
+	return Math.max(quality - qualityDecrease, 0);
+}
+
 function update_general_quality(sell_in, quality) {
 	const qualityDecrease = sell_in <= 0
 		? 2
@@ -47,6 +55,10 @@ function update_single_item(item) {
 
 		case 'Backstage passes to a TAFKAL80ETC concert':
 			quality = update_backstage_pass_quality(item.sell_in, item.quality);
+			break;
+
+		case 'Conjured Mana Cake':
+			quality = update_conjured_item_quality(item.sell_in, item.quality);
 			break;
 
 		default:
