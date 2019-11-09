@@ -42,17 +42,16 @@ function update_item_quality(item) {
 		return updatedItem;
 	}
 
-	if (updatedItem.quality > 0) {
-		updatedItem.quality = updatedItem.quality - 1
-	}
+	const qualityDecrease = updatedItem.sell_in <= 0
+		? 2
+		: 1;
 
-	updatedItem.sell_in = updatedItem.sell_in - 1;
+	updatedItem.sell_in--;
 
-	if (updatedItem.sell_in < 0) {
-		if (updatedItem.quality > 0) {
-			updatedItem.quality = updatedItem.quality - 1
-		}
-	}
+	updatedItem.quality = Math.max(
+		updatedItem.quality - qualityDecrease,
+		0
+	);
 
 	return updatedItem;
 };
