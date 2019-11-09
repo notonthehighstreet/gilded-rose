@@ -16,6 +16,7 @@ function update_item_quality(item) {
 	if (updatedItem.name === 'Aged Brie') {
 		if (updatedItem.quality < 50) {
 			updatedItem.quality++;
+			updatedItem.sell_in--;
 		}
 		return updatedItem;
 	}
