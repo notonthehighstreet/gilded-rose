@@ -28,14 +28,14 @@ describe('Gilded Rose', function() {
 		describe('Sulfuras', () => {
 			it('should not reduce the Quality or SellIn values', () => {
 				const testItems = [
-					new Item('Sulfuras, Hand of Ragnaros', 10, 5),
-					new Item('Sulfuras, Hand of Ragnaros', -1, 10)
+					new Item('Sulfuras, Hand of Ragnaros', 10, 80),
+					new Item('Sulfuras, Hand of Ragnaros', -1, 80)
 				];
 				const results = update_items(testItems);
 				expect(results[0].sell_in).toEqual(10);
-				expect(results[0].quality).toEqual(5);
+				expect(results[0].quality).toEqual(80);
 				expect(results[1].sell_in).toEqual(-1);
-				expect(results[1].quality).toEqual(10);
+				expect(results[1].quality).toEqual(80);
 			});
 		});
 
