@@ -9,6 +9,10 @@ var items = []
 function update_item_quality(item) {
 	const updatedItem = { ...item };
 
+	if (updatedItem.name === 'Sulfuras, Hand of Ragnaros') {
+		return updatedItem;
+	}
+
 	if (updatedItem.name != 'Aged Brie' && updatedItem.name != 'Backstage passes to a TAFKAL80ETC concert') {
 		if (updatedItem.quality > 0) {
 			if (updatedItem.name != 'Sulfuras, Hand of Ragnaros') {
