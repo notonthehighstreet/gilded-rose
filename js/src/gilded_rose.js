@@ -21,37 +21,36 @@ function update_item_quality(item) {
 		return updatedItem;
 	}
 
-	if (updatedItem.name != 'Backstage passes to a TAFKAL80ETC concert') {
-		if (updatedItem.quality > 0) {
-			updatedItem.quality = updatedItem.quality - 1
+	if (updatedItem.name === 'Backstage passes to a TAFKAL80ETC concert') {
+		if (updatedItem.sell_in <= 0) {
+			updatedItem.quality = 0;
+		} else {
+			const qualityIncrease = updatedItem.sell_in <= 5
+				? 3
+				: updatedItem.sell_in <= 10
+					? 2
+					: 1;
+
+			updatedItem.quality = Math.min(
+				updatedItem.quality + qualityIncrease,
+				50
+			);
 		}
-	} else {
-		if (updatedItem.quality < 50) {
-			updatedItem.quality = updatedItem.quality + 1
-			if (updatedItem.name == 'Backstage passes to a TAFKAL80ETC concert') {
-				if (updatedItem.sell_in < 11) {
-					if (updatedItem.quality < 50) {
-						updatedItem.quality = updatedItem.quality + 1
-					}
-				}
-				if (updatedItem.sell_in < 6) {
-					if (updatedItem.quality < 50) {
-						updatedItem.quality = updatedItem.quality + 1
-					}
-				}
-			}
-		}
+
+		updatedItem.sell_in--;
+
+		return updatedItem;
+	}
+
+	if (updatedItem.quality > 0) {
+		updatedItem.quality = updatedItem.quality - 1
 	}
 
 	updatedItem.sell_in = updatedItem.sell_in - 1;
 
 	if (updatedItem.sell_in < 0) {
-		if (updatedItem.name != 'Backstage passes to a TAFKAL80ETC concert') {
-			if (updatedItem.quality > 0) {
-				updatedItem.quality = updatedItem.quality - 1
-			}
-		} else {
-			updatedItem.quality = 0;
+		if (updatedItem.quality > 0) {
+			updatedItem.quality = updatedItem.quality - 1
 		}
 	}
 
