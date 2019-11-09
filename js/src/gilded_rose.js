@@ -6,7 +6,7 @@ function Item(name, sell_in, quality) {
 
 var items = []
 
-function update_backstage_pass_quality(sell_in, quality) {
+function calculate_backstage_pass_quality(sell_in, quality) {
 	if (sell_in <= 0) {
 		return 0;
 	}
@@ -20,13 +20,13 @@ function update_backstage_pass_quality(sell_in, quality) {
 	return Math.min(quality + qualityIncrease, 50);
 }
 
-function update_aged_brie_quality(quality) {
+function calculate_aged_brie_quality(quality) {
 	return quality < 50
 		? quality + 1
 		: quality;
 }
 
-function update_conjured_item_quality(sell_in, quality) {
+function calculate_conjured_item_quality(sell_in, quality) {
 	const qualityDecrease = sell_in <= 0
 		? 4
 		: 2;
@@ -34,7 +34,7 @@ function update_conjured_item_quality(sell_in, quality) {
 	return Math.max(quality - qualityDecrease, 0);
 }
 
-function update_general_quality(sell_in, quality) {
+function calculate_general_quality(sell_in, quality) {
 	const qualityDecrease = sell_in <= 0
 		? 2
 		: 1;
@@ -50,19 +50,19 @@ function update_single_item(item) {
 			return item;
 
 		case 'Aged Brie':
-			quality = update_aged_brie_quality(item.quality);
+			quality = calculate_aged_brie_quality(item.quality);
 			break;
 
 		case 'Backstage passes to a TAFKAL80ETC concert':
-			quality = update_backstage_pass_quality(item.sell_in, item.quality);
+			quality = calculate_backstage_pass_quality(item.sell_in, item.quality);
 			break;
 
 		case 'Conjured Mana Cake':
-			quality = update_conjured_item_quality(item.sell_in, item.quality);
+			quality = calculate_conjured_item_quality(item.sell_in, item.quality);
 			break;
 
 		default:
-			quality = update_general_quality(item.sell_in, item.quality);
+			quality = calculate_general_quality(item.sell_in, item.quality);
 			break;
 	}
 
