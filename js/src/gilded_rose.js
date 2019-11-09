@@ -54,11 +54,7 @@ function update_item_quality(item) {
 			break;
 	}
 
-	return {
-		name: item.name,
-		sell_in: item.sell_in - 1,
-		quality
-	};
+	return new Item(item.name, item.sell_in - 1, quality);
 };
 
 function update_quality(items) {
