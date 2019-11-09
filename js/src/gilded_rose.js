@@ -6,50 +6,59 @@ function Item(name, sell_in, quality) {
 
 var items = []
 
-function update_item_quality(item) {
-	const updatedItem = { ...item };
+function update_backstage_pass_quality(sell_in, quality) {
+	if (sell_in <= 0) {
+		return 0;
+	}
 
-	switch (updatedItem.name) {
+	const qualityIncrease = sell_in <= 5
+		? 3
+		: sell_in <= 10
+			? 2
+			: 1;
+
+	return Math.min(quality + qualityIncrease, 50);
+}
+
+function update_aged_brie_quality(quality) {
+	return quality < 50
+		? quality + 1
+		: quality;
+}
+
+function update_general_quality(sell_in, quality) {
+	const qualityDecrease = sell_in <= 0
+		? 2
+		: 1;
+
+	return Math.max(quality - qualityDecrease, 0);
+}
+
+function update_item_quality(item) {
+	let quality;
+
+	switch (item.name) {
 		case 'Sulfuras, Hand of Ragnaros':
-			return updatedItem;
+			return item;
 
 		case 'Aged Brie':
-			if (updatedItem.quality < 50) {
-				updatedItem.quality++;
-			}
+			quality = update_aged_brie_quality(item.quality);
 			break;
 
 		case 'Backstage passes to a TAFKAL80ETC concert':
-			if (updatedItem.sell_in <= 0) {
-				updatedItem.quality = 0;
-			} else {
-				const qualityIncrease = updatedItem.sell_in <= 5
-					? 3
-					: updatedItem.sell_in <= 10
-						? 2
-						: 1;
-
-				updatedItem.quality = Math.min(
-					updatedItem.quality + qualityIncrease,
-					50
-				);
-			}
+			quality = update_backstage_pass_quality(item.sell_in, item.quality);
 			break;
 
 		default:
-			const qualityDecrease = updatedItem.sell_in <= 0
-				? 2
-				: 1;
-
-			updatedItem.quality = Math.max(
-				updatedItem.quality - qualityDecrease,
-				0
-			);
+			quality = update_general_quality(item.sell_in, item.quality);
 			break;
 	}
 
-	updatedItem.sell_in--;
-	return updatedItem;
+	return {
+		name: item.name,
+		sell_in: item.sell_in - 1,
+		quality
+	};
 };
 
 function update_quality(items) {
