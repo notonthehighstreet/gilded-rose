@@ -22,9 +22,7 @@ function update_item_quality(item) {
 
 	if (updatedItem.name != 'Backstage passes to a TAFKAL80ETC concert') {
 		if (updatedItem.quality > 0) {
-			if (updatedItem.name != 'Sulfuras, Hand of Ragnaros') {
-				updatedItem.quality = updatedItem.quality - 1
-			}
+			updatedItem.quality = updatedItem.quality - 1
 		}
 	} else {
 		if (updatedItem.quality < 50) {
@@ -43,15 +41,13 @@ function update_item_quality(item) {
 			}
 		}
 	}
-	if (updatedItem.name != 'Sulfuras, Hand of Ragnaros') {
-		updatedItem.sell_in = updatedItem.sell_in - 1;
-	}
+
+	updatedItem.sell_in = updatedItem.sell_in - 1;
+
 	if (updatedItem.sell_in < 0) {
 		if (updatedItem.name != 'Backstage passes to a TAFKAL80ETC concert') {
 			if (updatedItem.quality > 0) {
-				if (updatedItem.name != 'Sulfuras, Hand of Ragnaros') {
-					updatedItem.quality = updatedItem.quality - 1
-				}
+				updatedItem.quality = updatedItem.quality - 1
 			}
 		} else {
 			updatedItem.quality = 0;
