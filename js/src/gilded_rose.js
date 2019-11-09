@@ -9,50 +9,46 @@ var items = []
 function update_item_quality(item) {
 	const updatedItem = { ...item };
 
-	if (updatedItem.name === 'Sulfuras, Hand of Ragnaros') {
-		return updatedItem;
-	}
+	switch (updatedItem.name) {
+		case 'Sulfuras, Hand of Ragnaros':
+			return updatedItem;
 
-	if (updatedItem.name === 'Aged Brie') {
-		if (updatedItem.quality < 50) {
-			updatedItem.quality++;
-			updatedItem.sell_in--;
-		}
-		return updatedItem;
-	}
+		case 'Aged Brie':
+			if (updatedItem.quality < 50) {
+				updatedItem.quality++;
+			}
+			break;
 
-	if (updatedItem.name === 'Backstage passes to a TAFKAL80ETC concert') {
-		if (updatedItem.sell_in <= 0) {
-			updatedItem.quality = 0;
-		} else {
-			const qualityIncrease = updatedItem.sell_in <= 5
-				? 3
-				: updatedItem.sell_in <= 10
-					? 2
-					: 1;
+		case 'Backstage passes to a TAFKAL80ETC concert':
+			if (updatedItem.sell_in <= 0) {
+				updatedItem.quality = 0;
+			} else {
+				const qualityIncrease = updatedItem.sell_in <= 5
+					? 3
+					: updatedItem.sell_in <= 10
+						? 2
+						: 1;
 
-			updatedItem.quality = Math.min(
-				updatedItem.quality + qualityIncrease,
-				50
+				updatedItem.quality = Math.min(
+					updatedItem.quality + qualityIncrease,
+					50
+				);
+			}
+			break;
+
+		default:
+			const qualityDecrease = updatedItem.sell_in <= 0
+				? 2
+				: 1;
+
+			updatedItem.quality = Math.max(
+				updatedItem.quality - qualityDecrease,
+				0
 			);
-		}
-
-		updatedItem.sell_in--;
-
-		return updatedItem;
+			break;
 	}
-
-	const qualityDecrease = updatedItem.sell_in <= 0
-		? 2
-		: 1;
 
 	updatedItem.sell_in--;
-
-	updatedItem.quality = Math.max(
-		updatedItem.quality - qualityDecrease,
-		0
-	);
-
 	return updatedItem;
 };
 
