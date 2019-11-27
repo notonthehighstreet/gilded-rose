@@ -132,7 +132,7 @@ describe('Gilded Rose', function () {
                 }
             ];
             checkResults(gildedRose, expectedResults);
-        })
+        });
     });
 
     describe('Sulfuras', () => {
@@ -171,6 +171,124 @@ describe('Gilded Rose', function () {
                 {
                     sellIn: -2,
                     quality: 61
+                }
+            ];
+            checkResults(gildedRose, expectedResults);
+        });
+    });
+
+    describe('Backstage Passes', () => {
+        it('should improve in quality by one each day when the gig is greater than 10 days away', () => {
+            const testItem = createItem('Backstage passes to a TAFKAL80ETC concert', 13, 3);
+            const gildedRose = new GildedRose([testItem]);
+            const expectedResults = [
+                {
+                    sellIn: 12,
+                    quality: 4
+                },
+                {
+                    sellIn: 11,
+                    quality: 5
+                },
+                {
+                    sellIn: 10,
+                    quality: 6
+                }
+            ];
+            checkResults(gildedRose, expectedResults);
+        });
+
+        it('should not improve in quality beyond 50', () => {
+            const testItem = createItem('Backstage passes to a TAFKAL80ETC concert', 13, 50);
+            const gildedRose = new GildedRose([testItem]);
+            const expectedResults = [
+                {
+                    sellIn: 12,
+                    quality: 50
+                }
+            ];
+            checkResults(gildedRose, expectedResults);
+        });
+
+        it('should improve in quality twice as fast when there are fewer than 10 days and greater than 5 days before the gig', () => {
+            const testItem = createItem('Backstage passes to a TAFKAL80ETC concert', 11, 10);
+            const gildedRose = new GildedRose([testItem]);
+            const expectedResults = [
+                {
+                    sellIn: 10,
+                    quality: 11
+                },
+                {
+                    sellIn: 9,
+                    quality: 13
+                },
+                {
+                    sellIn: 8,
+                    quality: 15
+                },
+                {
+                    sellIn: 7,
+                    quality: 17
+                },
+                {
+                    sellIn: 6,
+                    quality: 19
+                },
+                {
+                    sellIn: 5,
+                    quality: 21
+                }
+            ];
+            checkResults(gildedRose, expectedResults);
+        });
+
+        it('should improve in quality three times as fast when there are fewer than 5 days before the gig', () => {
+            const testItem = createItem('Backstage passes to a TAFKAL80ETC concert', 6, 10);
+            const gildedRose = new GildedRose([testItem]);
+            const expectedResults = [
+                {
+                    sellIn: 5,
+                    quality: 12
+                },
+                {
+                    sellIn: 4,
+                    quality: 15
+                },
+                {
+                    sellIn: 3,
+                    quality: 18
+                },
+                {
+                    sellIn: 2,
+                    quality: 21
+                },
+                {
+                    sellIn: 1,
+                    quality: 24
+                },
+                {
+                    sellIn: 0,
+                    quality: 27
+                }
+            ];
+            checkResults(gildedRose, expectedResults);
+        });
+
+        it('should become worthless once the concert is over', () => {
+            const testItem = createItem('Backstage passes to a TAFKAL80ETC concert', 1, 10);
+            const gildedRose = new GildedRose([testItem]);
+            const expectedResults = [
+                {
+                    sellIn: 0,
+                    quality: 13
+                },
+                {
+                    sellIn: -1,
+                    quality: 0
+                },
+                {
+                    sellIn: -2,
+                    quality: 0
                 }
             ];
             checkResults(gildedRose, expectedResults);
