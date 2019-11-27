@@ -329,6 +329,30 @@ describe('Gilded Rose', function () {
             ];
             checkResults(gildedRose, expectedResults);
         });
+
+        it('should degrade in quality twice as fast once the sell by date has been exceeded', () => {
+            const testItem = createItem('Conjured Mana Cake', 2, 10);
+            const gildedRose = new GildedRose([testItem]);
+            const expectedResults = [
+                {
+                    sellIn: 1,
+                    quality: 8
+                },
+                {
+                    sellIn: 0,
+                    quality: 6
+                },
+                {
+                    sellIn: -1,
+                    quality: 2
+                },
+                {
+                    sellIn: -2,
+                    quality: 0
+                }
+            ];
+            checkResults(gildedRose, expectedResults);
+        });
     });
 
 });
