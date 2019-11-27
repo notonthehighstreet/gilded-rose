@@ -74,7 +74,7 @@ export class GildedRose {
     };
 
     updateQuality() {
-        this.items.forEach((item) => {
+        this.items.forEach((item: Item) => {
             switch(item.name) {
                 case 'Aged Brie': 
                     this.updateBrie(item);
