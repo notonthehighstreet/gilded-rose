@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { GildedRose } from '../app/gilded-rose';
-import { createItem, checkItem } from './test-helpers';
+import { createItem, checkItem, checkResults } from './test-helpers';
 
 describe('Gilded Rose', function () {
 
@@ -22,44 +22,58 @@ describe('Gilded Rose', function () {
             
             const testItem = createItem('TestItem1', 3, 3);
             const gildedRose = new GildedRose([testItem]);
-
-            gildedRose.updateQuality();
-            let resultItem = gildedRose.items[0];
-            checkItem(resultItem, 2, 2);
-
-            gildedRose.updateQuality();
-            checkItem(resultItem, 1, 1);
-
-            gildedRose.updateQuality();
-            checkItem(resultItem, 0, 0);
+            const expectedResults = [
+                {
+                    sellIn: 2,
+                    quality: 2
+                },
+                {
+                    sellIn: 1,
+                    quality: 1
+                },
+                {
+                    sellIn: 0,
+                    quality: 0
+                }
+            ];
+            checkResults(gildedRose, expectedResults);
 
         });
 
         it('should not degrade in quality further than 0', () => {
             const testItem = createItem('TestItem1', 3, 0);
             const gildedRose = new GildedRose([testItem]);
-
-            gildedRose.updateQuality();
-            let resultItem = gildedRose.items[0];
-            checkItem(resultItem, 2, 0);
+            const expectedResults = [
+                {
+                    sellIn: 2,
+                    quality: 0
+                }
+            ];
+            checkResults(gildedRose, expectedResults);
         });
 
         it('should degrade in quality twice as fast once the sell by date has been exceeded', () => {
             const testItem = createItem('TestItem1', 2, 10);
             const gildedRose = new GildedRose([testItem]);
-
-            gildedRose.updateQuality();
-            let resultItem = gildedRose.items[0];
-            checkItem(resultItem, 1, 9);
-
-            gildedRose.updateQuality();
-            checkItem(resultItem, 0, 8);
-
-            gildedRose.updateQuality();
-            checkItem(resultItem, -1, 6);
-
-            gildedRose.updateQuality();
-            checkItem(resultItem, -2, 4);
+            const expectedResults = [
+                {
+                    sellIn: 1,
+                    quality: 9
+                },
+                {
+                    sellIn: 0,
+                    quality: 8
+                },
+                {
+                    sellIn: -1,
+                    quality: 6
+                },
+                {
+                    sellIn: -2,
+                    quality: 4
+                }
+            ];
+            checkResults(gildedRose, expectedResults);
         });
     });
 
@@ -67,43 +81,57 @@ describe('Gilded Rose', function () {
         it('should improve in quality by one each day', () => {
             const testItem = createItem('Aged Brie', 3, 3);
             const gildedRose = new GildedRose([testItem]);
-
-            gildedRose.updateQuality();
-            let resultItem = gildedRose.items[0];
-            checkItem(resultItem, 2, 4);
-
-            gildedRose.updateQuality();
-            checkItem(resultItem, 1, 5);
-
-            gildedRose.updateQuality();
-            checkItem(resultItem, 0, 6);
+            const expectedResults = [
+                {
+                    sellIn: 2,
+                    quality: 4
+                },
+                {
+                    sellIn: 1,
+                    quality: 5
+                },
+                {
+                    sellIn: 0,
+                    quality: 6
+                }
+            ];
+            checkResults(gildedRose, expectedResults);
         });
 
         it('should not improve in quality beyond 50', () => {
             const testItem = createItem('Aged Brie', 3, 50);
             const gildedRose = new GildedRose([testItem]);
-
-            gildedRose.updateQuality();
-            let resultItem = gildedRose.items[0];
-            checkItem(resultItem, 2, 50);
+            const expectedResults = [
+                {
+                    sellIn: 2,
+                    quality: 50
+                }
+            ];
+            checkResults(gildedRose, expectedResults);
         });
 
         it('should improve in quality twice as fast once the expiry has been reached', () => {
             const testItem = createItem('Aged Brie', 2, 10);
             const gildedRose = new GildedRose([testItem]);
-
-            gildedRose.updateQuality();
-            let resultItem = gildedRose.items[0];
-            checkItem(resultItem, 1, 11);
-
-            gildedRose.updateQuality();
-            checkItem(resultItem, 0, 12);
-
-            gildedRose.updateQuality();
-            checkItem(resultItem, -1, 14);
-
-            gildedRose.updateQuality();
-            checkItem(resultItem, -2, 16);
+            const expectedResults = [
+                {
+                    sellIn: 1,
+                    quality: 11
+                },
+                {
+                    sellIn: 0,
+                    quality: 12
+                },
+                {
+                    sellIn: -1,
+                    quality: 14
+                },
+                {
+                    sellIn: -2,
+                    quality: 16
+                }
+            ];
+            checkResults(gildedRose, expectedResults);
         })
     });
 
