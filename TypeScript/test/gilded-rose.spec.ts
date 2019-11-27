@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { GildedRose } from '../app/gilded-rose';
-import { createItem } from './test-helpers';
+import { createItem, checkItem } from './test-helpers';
 
 describe('Gilded Rose', function () {
 
@@ -25,16 +25,13 @@ describe('Gilded Rose', function () {
 
             gildedRose.updateQuality();
             let resultItem = gildedRose.items[0];
-            expect(resultItem.quality).to.equal(2);
-            expect(resultItem.sellIn).to.equal(2);
+            checkItem(resultItem, 2, 2);
 
             gildedRose.updateQuality();
-            expect(resultItem.quality).to.equal(1);
-            expect(resultItem.sellIn).to.equal(1);
+            checkItem(resultItem, 1, 1);
 
             gildedRose.updateQuality();
-            expect(resultItem.quality).to.equal(0);
-            expect(resultItem.sellIn).to.equal(0);
+            checkItem(resultItem, 0, 0);
 
         });
 
@@ -44,8 +41,7 @@ describe('Gilded Rose', function () {
 
             gildedRose.updateQuality();
             let resultItem = gildedRose.items[0];
-            expect(resultItem.quality).to.equal(0);
-            expect(resultItem.sellIn).to.equal(2);
+            checkItem(resultItem, 2, 0);
         });
 
         it('should degrade quality twice as fast once the sell by date has been exceeded', () => {
@@ -54,20 +50,16 @@ describe('Gilded Rose', function () {
 
             gildedRose.updateQuality();
             let resultItem = gildedRose.items[0];
-            expect(resultItem.quality).to.equal(9);
-            expect(resultItem.sellIn).to.equal(1);
+            checkItem(resultItem, 1, 9);
 
             gildedRose.updateQuality();
-            expect(resultItem.quality).to.equal(8);
-            expect(resultItem.sellIn).to.equal(0);
+            checkItem(resultItem, 0, 8);
 
             gildedRose.updateQuality();
-            expect(resultItem.quality).to.equal(6);
-            expect(resultItem.sellIn).to.equal(-1);
+            checkItem(resultItem, -1, 6);
 
             gildedRose.updateQuality();
-            expect(resultItem.quality).to.equal(4);
-            expect(resultItem.sellIn).to.equal(-2);
+            checkItem(resultItem, -2, 4);
         });
     });
 
