@@ -295,4 +295,28 @@ describe('Gilded Rose', function () {
         });
     });
 
+    describe('Conjured Items', () => {
+        it('should degrade in quality by two each day when sell by date not exceeded', () => {
+            
+            const testItem = createItem('Conjured Mana Cake', 3, 8);
+            const gildedRose = new GildedRose([testItem]);
+            const expectedResults = [
+                {
+                    sellIn: 2,
+                    quality: 6
+                },
+                {
+                    sellIn: 1,
+                    quality: 4
+                },
+                {
+                    sellIn: 0,
+                    quality: 2
+                }
+            ];
+            checkResults(gildedRose, expectedResults);
+
+        });
+    });
+
 });
