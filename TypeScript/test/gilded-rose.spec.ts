@@ -317,6 +317,18 @@ describe('Gilded Rose', function () {
             checkResults(gildedRose, expectedResults);
 
         });
+
+        it('should not degrade in quality further than 0', () => {
+            const testItem = createItem('Conjured Mana Cake', 3, 0);
+            const gildedRose = new GildedRose([testItem]);
+            const expectedResults = [
+                {
+                    sellIn: 2,
+                    quality: 0
+                }
+            ];
+            checkResults(gildedRose, expectedResults);
+        });
     });
 
 });

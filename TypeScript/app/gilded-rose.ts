@@ -76,6 +76,10 @@ export class GildedRose {
     updateConjuredItem(conjuredItem: Item) {
         conjuredItem.sellIn -= 1;
         conjuredItem.quality -= 2;
+
+        if(conjuredItem.quality < 0) {
+            conjuredItem.quality = 0;
+        }
     };
 
     updateQuality() {
