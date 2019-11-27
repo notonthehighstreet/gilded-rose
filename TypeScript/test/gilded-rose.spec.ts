@@ -135,4 +135,46 @@ describe('Gilded Rose', function () {
         })
     });
 
+    describe('Sulfuras', () => {
+        it('should never need to be sold, and it`s quality is eternal', () => {
+            const testItem = createItem('Sulfuras, Hand of Ragnaros', 1, 80);
+            const gildedRose = new GildedRose([testItem]);
+            const expectedResults = [
+                {
+                    sellIn: 1,
+                    quality: 80
+                },
+                {
+                    sellIn: 1,
+                    quality: 80
+                },
+                {
+                    sellIn: 1,
+                    quality: 80
+                }
+            ];
+            checkResults(gildedRose, expectedResults);
+        });
+
+        it('should always have the sellIn and Quality values it is initialised with', () => {
+            const testItem = createItem('Sulfuras, Hand of Ragnaros', -2, 61);
+            const gildedRose = new GildedRose([testItem]);
+            const expectedResults = [
+                {
+                    sellIn: -2,
+                    quality: 61
+                },
+                {
+                    sellIn: -2,
+                    quality: 61
+                },
+                {
+                    sellIn: -2,
+                    quality: 61
+                }
+            ];
+            checkResults(gildedRose, expectedResults);
+        });
+    });
+
 });
