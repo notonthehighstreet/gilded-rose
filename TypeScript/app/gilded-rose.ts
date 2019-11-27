@@ -73,6 +73,21 @@ export class GildedRose {
         return backstagePass;
     };
 
+    updateConjuredItem(conjuredItem: Item) {
+        conjuredItem.sellIn -= 1;
+        if(conjuredItem.quality > 0) {
+            let qualityAdjustment = 2;
+            if(conjuredItem.sellIn < 0) {
+                qualityAdjustment = 4;
+            }
+            conjuredItem.quality -= qualityAdjustment;
+            if(conjuredItem.quality < 0) {
+                conjuredItem.quality = 0;
+            }
+        }
+        return conjuredItem;
+    };
+
     updateQuality() {
         this.items.forEach((item: Item) => {
             switch(item.name) {
@@ -84,6 +99,9 @@ export class GildedRose {
                     break;
                 case 'Backstage passes to a TAFKAL80ETC concert':
                     this.updateBackstagePass(item);
+                    break;
+                case 'Conjured Mana Cake':
+                    this.updateConjuredItem(item);
                     break;
                 default:
                     this.updateStandardItem(item);
