@@ -14,7 +14,7 @@ const items = [
 
 
 const gildedRose = new GildedRose(items);
-var days: number = 2;
+const days = 2;
 for (let i = 0; i < days; i++) {
     console.log("-------- day " + i + " --------");
     console.log("name, sellIn, quality");
