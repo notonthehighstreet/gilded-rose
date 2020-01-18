@@ -33,12 +33,19 @@ describe('Gilded Rose', function () {
         expect(items[0].quality).to.equal(INITIAL_QUALITY - 2);
       });
 
-      it("quality can never be less than 0", () => {
+      it("quality should never be less than 0", () => {
         const initialQuality = 0;
         const normalItem = createItem(ItemTypes.NORMAL_ITEM, 4, initialQuality);
         const gildedRose = new GildedRose([normalItem]);
         const items = gildedRose.updateQuality();
         expect(items[0].quality).to.equal(0);
+      });
+
+      it("should decrease the sell in date by one", () => {
+        const normalItem = createItem(ItemTypes.NORMAL_ITEM);
+        const gildedRose = new GildedRose([normalItem]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].sellIn).to.equal(INITIAL_SELL_IN - 1);
       });
       
     });
