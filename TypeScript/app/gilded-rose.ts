@@ -1,3 +1,10 @@
+export enum ItemTypes {
+    AGED_BRIE = 'Aged Brie',
+    SULFURAS = 'Sulfuras',
+    BACKSTAGE_PASSES = 'Backstage passes',
+    NORMAL_ITEM = 'normal item'
+}
+
 export class Item {
     name: string;
     sellIn: number;
