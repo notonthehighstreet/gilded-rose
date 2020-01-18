@@ -47,7 +47,6 @@ describe('Gilded Rose', function () {
         const items = gildedRose.updateQuality();
         expect(items[0].sellIn).to.equal(INITIAL_SELL_IN - 1);
       });
-      
     });
 
     describe("Aged Brie", () => {
@@ -56,6 +55,13 @@ describe('Gilded Rose', function () {
         const gildedRose = new GildedRose([agedBrie]);
         const items = gildedRose.updateQuality();
         expect(items[0].quality).to.equal(INITIAL_QUALITY + 1);
+      });
+
+      it("quality should never increase by more than 50", () => {
+        const agedBrie = createItem(ItemTypes.AGED_BRIE, INITIAL_SELL_IN, 50);
+        const gildedRose = new GildedRose([agedBrie]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].quality).to.equal(50);
       });
     });
 
