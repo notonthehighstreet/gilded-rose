@@ -1,6 +1,6 @@
 export enum ItemTypes {
     AGED_BRIE = 'Aged Brie',
-    SULFURAS = 'Sulfuras',
+    SULFURAS = 'Sulfuras, Hand of Ragnaros',
     BACKSTAGE_PASSES = 'Backstage passes',
     NORMAL_ITEM = 'normal item'
 }
