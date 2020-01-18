@@ -42,6 +42,15 @@ describe('Gilded Rose', function () {
       });
       
     });
+
+    describe("Aged Brie", () => {
+      it("increases in Quality the older it gets", () => {
+        const agedBrie = createItem(ItemTypes.AGED_BRIE);
+        const gildedRose = new GildedRose([agedBrie]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].quality).to.equal(INITIAL_QUALITY + 1);
+      });
+    });
   });
 
 
