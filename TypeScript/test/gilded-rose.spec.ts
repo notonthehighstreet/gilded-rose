@@ -1,5 +1,7 @@
 import { expect } from 'chai';
+import { rangeRight } from 'lodash';
 import { Item, GildedRose, ItemTypes } from '../app/gilded-rose';
+
 
 describe('Gilded Rose', function () {
 
@@ -82,5 +84,38 @@ describe('Gilded Rose', function () {
     });
   });
 
+  describe("Backstage Passes Tests", () => {
+    it("increases in Quality the older it gets", () => {
+      const backStagePass = createItem(ItemTypes.BACKSTAGE_PASSES);
+      const gildedRose = new GildedRose([backStagePass]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].quality).to.equal(INITIAL_QUALITY + 1);
+    });
 
+    it("Quality increases by 2 when there are between 10 and 5 days remaining to be sold", () => {
+      rangeRight(10, 6).forEach(sellIn => {
+        const backStagePass = createItem(ItemTypes.BACKSTAGE_PASSES, sellIn);
+        const gildedRose = new GildedRose([backStagePass]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].quality).to.equal(INITIAL_QUALITY + 2);
+      });
+    });
+
+    it("Quality increases by 3 when there are 5 days or less to be sold", () => {
+      rangeRight(5, 1).forEach(sellIn => {
+        const backStagePass = createItem(ItemTypes.BACKSTAGE_PASSES, sellIn);
+        const gildedRose = new GildedRose([backStagePass]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].quality).to.equal(INITIAL_QUALITY + 3);
+      });
+    });
+
+    it("Quality drops to 0 after the concert", () => {
+      const backStagePass = createItem(ItemTypes.BACKSTAGE_PASSES, EXPIRED_SELL_IN);
+      const gildedRose = new GildedRose([backStagePass]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].quality).to.equal(0);
+    });
+  });
 });
+
