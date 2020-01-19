@@ -84,7 +84,7 @@ describe('Gilded Rose', function () {
     });
   });
 
-  describe("Backstage Passes Tests", () => {
+  describe("Backstage Passes", () => {
     it("increases in Quality the older it gets", () => {
       const backStagePass = createItem(ItemTypes.BACKSTAGE_PASSES);
       const gildedRose = new GildedRose([backStagePass]);
