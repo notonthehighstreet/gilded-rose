@@ -1,4 +1,10 @@
-import { inRange } from 'lodash';
+import { 
+    AgedBrieItemUpdater,
+    BackStagePassItemUpdater,
+    SulfurasItemUpdater,
+    DefaultItemUpdater,
+    ItemUpdater
+} from './itemUpdaters';
 
 export enum ItemTypes {
     AGED_BRIE = 'Aged Brie',
@@ -18,74 +24,6 @@ export class Item {
         this.quality = quality;
     }
 }
-
-interface ItemUpdater {
-    adjustSetIn: () => Item;
-    adjustQuality: () => Item;
-}
-
-class DefaultItemUpdater implements ItemUpdater {
-
-    protected readonly item;
-    private readonly minQualityThreshold = 0;
-    private readonly maxQualityThreshold = 50;
-
-    constructor(item: Item) {
-        this.item = item;
-    }
-    
-    protected getValuationChangeRate(): number {
-        return this.item.sellIn > 0 ? -1 : -2;
-    }
-    
-    adjustSetIn(): Item {
-        this.item.sellIn --;
-        return this.item;
-    }
-
-    adjustQuality(): Item {
-        const { quality } = this.item;
-        if(quality > this.minQualityThreshold && quality < this.maxQualityThreshold) {
-            this.item.quality += this.getValuationChangeRate();
-        }
-        return this.item;
-    }
- 
-}
-
-class SulfurasItemUpdater extends DefaultItemUpdater {
-    adjustSetIn(): Item {
-       return this.item;
-    }
-
-    protected getValuationChangeRate(): number {
-        return 0;
-    }
-}
-
-class AgedBrieItemUpdater extends DefaultItemUpdater {
-
-    protected getValuationChangeRate(): number {
-        return +1;
-    }
-}
-
-class BackStagePassItemUpdater extends DefaultItemUpdater {
-
-    protected getValuationChangeRate(): number {
-        const { sellIn } = this.item;
-        if(inRange(sellIn, 6, 11)) {
-            return 2;
-        } else if(inRange(sellIn, 0, 6)) {
-            return 3
-        } else if(sellIn < 0) {
-            return -this.item.quality;
-        } else {
-            return 1;
-        }
-    }
-}
-
 
 const ItemUpdaterMap = {
     [ItemTypes.SULFURAS]: SulfurasItemUpdater,
