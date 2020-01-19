@@ -17,6 +17,40 @@ export class Item {
     }
 }
 
+interface ItemUpdater {
+    adjustSetIn: () => void;
+}
+
+class DefaultItemUpdater implements ItemUpdater {
+
+    protected readonly item;
+
+    constructor(item: Item) {
+        this.item = item;
+    }
+    
+    adjustSetIn(): void {
+        this.item.sellIn --;
+    }
+
+}
+
+class SulfurasItemUpdater extends DefaultItemUpdater {
+    adjustSetIn(): void {
+       return;
+    }
+}
+
+
+const ItemUpdaterMap = {
+    [ItemTypes.SULFURAS]: SulfurasItemUpdater,
+}
+
+function getItemUpdater(item: Item): ItemUpdater {
+    const Updater = ItemUpdaterMap[item.name] || DefaultItemUpdater;
+    return new Updater(item);
+}
+
 export class GildedRose {
     items: Array<Item>;
 
@@ -26,6 +60,7 @@ export class GildedRose {
 
     updateQuality(): Array<Item> {
         for (let i = 0; i < this.items.length; i++) {
+            const itemUpdater = getItemUpdater(this.items[i]);
             if (this.items[i].name != 'Aged Brie' && this.items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
                 if (this.items[i].quality > 0) {
                     if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
@@ -49,9 +84,7 @@ export class GildedRose {
                     }
                 }
             }
-            if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
-                this.items[i].sellIn = this.items[i].sellIn - 1;
-            }
+            itemUpdater.adjustSetIn();
             if (this.items[i].sellIn < 0) {
                 if (this.items[i].name != 'Aged Brie') {
                     if (this.items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
