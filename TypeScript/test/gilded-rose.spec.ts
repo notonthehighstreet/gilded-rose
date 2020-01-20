@@ -89,6 +89,13 @@ describe('Gilded Rose', function () {
       expect(items[0].quality).to.equal(INITIAL_QUALITY + 1);
     });
 
+    it("quality should never increase by more than 50", () => {
+      const backStagePass = createItem(ItemTypes.BACKSTAGE_PASSES, INITIAL_SELL_IN, 50);
+      const gildedRose = new GildedRose([backStagePass]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].quality).to.equal(50);
+    });
+
     it("Quality increases by 2 when there are between 10 and 5 days remaining to be sold", () => {
       rangeRight(10, 6).forEach(sellIn => {
         const backStagePass = createItem(ItemTypes.BACKSTAGE_PASSES, sellIn);
