@@ -1,16 +1,13 @@
 import { expect } from 'chai';
 import { rangeRight } from 'lodash';
-import { Item, GildedRose, ItemTypes } from '../app/gilded-rose';
+import { Item, GildedRose } from '../app/gilded-rose';
+import { ItemTypes } from '../app/constants';
+import { createItem, INITIAL_QUALITY, INITIAL_SELL_IN, EXPIRED_SELL_IN } from './testHelpers';
+
 
 
 describe('Gilded Rose', function () {
 
-  const INITIAL_QUALITY = 10;
-  const INITIAL_SELL_IN = 20;
-  const EXPIRED_SELL_IN = -1;
-  function createItem(itemType: ItemTypes, sellIn: number = INITIAL_SELL_IN, quality: number = INITIAL_QUALITY): Item {
-    return new Item(itemType, sellIn, quality);
-  }
   it('should foo', function () {
     const gildedRose = new GildedRose([new Item('foo', 0, 0)]);
     const items = gildedRose.updateQuality();

@@ -1,19 +1,4 @@
-import { 
-    AgedBrieItemUpdater,
-    BackStagePassItemUpdater,
-    SulfurasItemUpdater,
-    ConjuredItemUpdater,
-    DefaultItemUpdater,
-    ItemUpdater
-} from './itemUpdaters';
-
-export enum ItemTypes {
-    AGED_BRIE = 'Aged Brie',
-    SULFURAS = 'Sulfuras, Hand of Ragnaros',
-    BACKSTAGE_PASSES = 'Backstage passes to a TAFKAL80ETC concert',
-    CONJURED_ITEM = 'Conjured Item',
-    NORMAL_ITEM = 'normal item'
-}
+import { getItemUpdater } from './itemUpdaters';
 
 export class Item {
     name: string;
@@ -25,18 +10,6 @@ export class Item {
         this.sellIn = sellIn;
         this.quality = quality;
     }
-}
-
-const ItemUpdaterMap = {
-    [ItemTypes.SULFURAS]: SulfurasItemUpdater,
-    [ItemTypes.AGED_BRIE]: AgedBrieItemUpdater,
-    [ItemTypes.BACKSTAGE_PASSES]: BackStagePassItemUpdater,
-    [ItemTypes.CONJURED_ITEM]: ConjuredItemUpdater
-}
-
-function getItemUpdater(item: Item): ItemUpdater {
-    const Updater = ItemUpdaterMap[item.name] || DefaultItemUpdater;
-    return new Updater(item);
 }
 
 export class GildedRose {
