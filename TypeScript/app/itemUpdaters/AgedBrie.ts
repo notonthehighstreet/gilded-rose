@@ -3,7 +3,7 @@ import DefaultItemUpdater from './Default';
 
 export default class AgedBrieItemUpdater extends DefaultItemUpdater {
 
-    protected getValuationChangeRate(): number {
+    protected getQualityDifference(): number {
         return +1;
     }
 }

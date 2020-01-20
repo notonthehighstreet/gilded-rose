@@ -1,13 +1,12 @@
 import { Item } from '../gilded-rose';
 
 export interface ItemUpdater {
-    adjustSetIn: () => Item;
-    adjustQuality: () => Item;
+    updateItem: () => Item;
 }
 
 export default class DefaultItemUpdater implements ItemUpdater {
 
-    protected readonly item;
+    private readonly item: Item;
     private readonly minQualityThreshold = 0;
     private readonly maxQualityThreshold = 50;
 
@@ -15,21 +14,25 @@ export default class DefaultItemUpdater implements ItemUpdater {
         this.item = item;
     }
     
-    protected getValuationChangeRate(): number {
-        return this.item.sellIn > 0 ? -1 : -2;
+    protected getQualityDifference(item: Item): number {
+        return item.sellIn > 0 ? -1 : -2;
     }
     
-    adjustSetIn(): Item {
-        this.item.sellIn --;
-        return this.item;
+    protected adjustSetIn(item: Item): Item {
+        return {...item, sellIn: item.sellIn - 1};
     }
 
-    adjustQuality(): Item {
-        const { quality } = this.item;
+    protected adjustQuality(item: Item): Item {
+        const { quality } = item;
         if(quality > this.minQualityThreshold && quality < this.maxQualityThreshold) {
-            this.item.quality += this.getValuationChangeRate();
+            const updatedQuality = quality + this.getQualityDifference(item);
+            return {...item, quality: updatedQuality }
         }
-        return this.item;
+        return item;
+    }
+
+    updateItem(): Item {
+        return this.adjustQuality(this.adjustSetIn(this.item));
     }
  
 }

@@ -2,11 +2,11 @@ import DefaultItemUpdater from './Default';
 import { Item } from '../gilded-rose';
 
 export default class SulfurasItemUpdater extends DefaultItemUpdater {
-    adjustSetIn(): Item {
-       return this.item;
+    adjustSetIn(item: Item): Item {
+       return item;
     }
 
-    protected getValuationChangeRate(): number {
+    protected getQualityDifference(): number {
         return 0;
     }
 }

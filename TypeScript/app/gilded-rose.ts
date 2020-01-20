@@ -20,11 +20,6 @@ export class GildedRose {
     }
 
     updateQuality(): Array<Item> {
-        for (let i = 0; i < this.items.length; i++) {
-            const itemUpdater = getItemUpdater(this.items[i]);
-            itemUpdater.adjustQuality();
-            itemUpdater.adjustSetIn();
-        }
-        return this.items;
+        return this.items.map(item => getItemUpdater(item).updateItem());
     }
 }
