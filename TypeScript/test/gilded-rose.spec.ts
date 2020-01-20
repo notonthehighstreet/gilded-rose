@@ -4,7 +4,7 @@ import { Item, GildedRose } from '../app/gilded-rose';
 import { ItemTypes } from '../app/constants';
 import { createItem, INITIAL_QUALITY, INITIAL_SELL_IN, EXPIRED_SELL_IN } from './testHelpers';
 
-
+const NORMAL_ITEM = "normal item";
 
 describe('Gilded Rose', function () {
 
@@ -19,14 +19,14 @@ describe('Gilded Rose', function () {
     describe("Normal Items", () => {
 
       it("should decrease in quality by one", () => {
-        const normalItem = createItem(ItemTypes.NORMAL_ITEM);
+        const normalItem = createItem(NORMAL_ITEM);
         const gildedRose = new GildedRose([normalItem]);
         const items = gildedRose.updateQuality();
         expect(items[0].quality).to.equal(INITIAL_QUALITY - 1);
       });
 
       it("After sell by date past, quality should degrade twice as fast", () => {
-        const normalItem = createItem(ItemTypes.NORMAL_ITEM, EXPIRED_SELL_IN);
+        const normalItem = createItem(NORMAL_ITEM, EXPIRED_SELL_IN);
         const gildedRose = new GildedRose([normalItem]);
         const items = gildedRose.updateQuality();
         expect(items[0].quality).to.equal(INITIAL_QUALITY - 2);
@@ -34,14 +34,14 @@ describe('Gilded Rose', function () {
 
       it("quality should never be less than 0", () => {
         const initialQuality = 0;
-        const normalItem = createItem(ItemTypes.NORMAL_ITEM, 4, initialQuality);
+        const normalItem = createItem(NORMAL_ITEM, 4, initialQuality);
         const gildedRose = new GildedRose([normalItem]);
         const items = gildedRose.updateQuality();
         expect(items[0].quality).to.equal(0);
       });
 
       it("should decrease the sell in date by one", () => {
-        const normalItem = createItem(ItemTypes.NORMAL_ITEM);
+        const normalItem = createItem(NORMAL_ITEM);
         const gildedRose = new GildedRose([normalItem]);
         const items = gildedRose.updateQuality();
         expect(items[0].sellIn).to.equal(INITIAL_SELL_IN - 1);
@@ -118,7 +118,7 @@ describe('Gilded Rose', function () {
   describe("ConjuredItems", () => {
     it("degrade in Quality twice as fast as normal items", () => {
       const conjuredItem = createItem(ItemTypes.CONJURED_ITEM);
-      const normalItem = createItem(ItemTypes.NORMAL_ITEM);
+      const normalItem = createItem(NORMAL_ITEM);
       const gildedRose = new GildedRose([conjuredItem, normalItem]);
       const [updatedConjuredItem, updatedNormalItem] = gildedRose.updateQuality();
       expect(updatedConjuredItem.quality).to.equal(INITIAL_QUALITY - 2);

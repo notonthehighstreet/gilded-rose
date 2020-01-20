@@ -1,10 +1,13 @@
 import { Item } from '../gilded-rose';
 
-export interface ItemUpdater {
+export interface ItemUpdaterConstructor {
+    new (item: Item): ItemUpdaterInterface;
+}
+export interface ItemUpdaterInterface {
     updateItem: () => Item;
 }
 
-export default class DefaultItemUpdater implements ItemUpdater {
+export default class DefaultItemUpdater implements ItemUpdaterInterface {
 
     private readonly item: Item;
     private readonly minQualityThreshold = 0;
