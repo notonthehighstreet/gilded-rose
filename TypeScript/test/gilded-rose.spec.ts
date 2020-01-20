@@ -65,11 +65,11 @@ describe('Gilded Rose', function () {
     });
 
     describe("Sulfuras", () => {
-      it("never descreases in quality", () => {
+      it("always maintains a quality of 80 after update", () => {
         const sulfuras = createItem(ItemTypes.SULFURAS);
         const gildedRose = new GildedRose([sulfuras]);
         const items = gildedRose.updateQuality();
-        expect(items[0].quality).to.equal(INITIAL_QUALITY);
+        expect(items[0].quality).to.equal(80);
       });
 
       it("never has to be sold", () => {
